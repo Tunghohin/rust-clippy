@@ -1,4 +1,5 @@
 mod duplicate_underscore_argument;
+mod foo_functions;
 mod impl_trait_in_params;
 mod misnamed_getters;
 mod must_use;
@@ -473,6 +474,25 @@ declare_clippy_lint! {
     "function signature uses `&Option<T>` instead of `Option<&T>`"
 }
 
+declare_clippy_lint! {
+    /// ### What it does
+    ///
+    /// ### Why is this bad?
+    ///
+    /// ### Example
+    /// ```no_run
+    /// // example code where clippy issues a warning
+    /// ```
+    /// Use instead:
+    /// ```no_run
+    /// // example code which does not raise clippy warning
+    /// ```
+    #[clippy::version = "1.93.0"]
+    pub FOO_FUNCTIONS,
+    pedantic,
+    "default lint description"
+}
+
 declare_lint_pass!(EarlyFunctions => [DUPLICATE_UNDERSCORE_ARGUMENT]);
 
 impl EarlyLintPass for EarlyFunctions {
@@ -522,6 +542,7 @@ impl_lint_pass!(Functions => [
     IMPL_TRAIT_IN_PARAMS,
     RENAMED_FUNCTION_PARAMS,
     REF_OPTION,
+    FOO_FUNCTIONS,
 ]);
 
 impl<'tcx> LateLintPass<'tcx> for Functions {
@@ -550,6 +571,7 @@ impl<'tcx> LateLintPass<'tcx> for Functions {
             body,
             self.avoid_breaking_exported_api,
         );
+        foo_functions::check_fn(cx, decl);
     }
 
     fn check_item(&mut self, cx: &LateContext<'tcx>, item: &'tcx hir::Item<'_>) {

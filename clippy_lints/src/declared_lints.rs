@@ -186,6 +186,7 @@ pub static LINTS: &[&::declare_clippy_lint::LintInfo] = &[
     crate::from_str_radix_10::FROM_STR_RADIX_10_INFO,
     crate::functions::DOUBLE_MUST_USE_INFO,
     crate::functions::DUPLICATE_UNDERSCORE_ARGUMENT_INFO,
+    crate::functions::FOO_FUNCTIONS_INFO,
     crate::functions::IMPL_TRAIT_IN_PARAMS_INFO,
     crate::functions::MISNAMED_GETTERS_INFO,
     crate::functions::MUST_USE_CANDIDATE_INFO,
